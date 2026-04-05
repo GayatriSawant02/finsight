@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-finsight-bg: #070B13;
+  --color-finsight-panel: #0E1524;
+  --color-finsight-panel-hover: #151d30;
+  --color-finsight-border: #1A233A; 
+  --color-finsight-primary: #2563EB; 
+  --color-finsight-accent: #3B82F6; 
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-finsight-bg text-gray-200 antialiased font-sans;
+  }
+}
