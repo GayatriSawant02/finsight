@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Receipt, BarChart3, Lightbulb } from 'lucide-react';
+import { LayoutDashboard, Receipt, Settings, Lightbulb } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { name: 'Transactions', href: '/transactions', icon: Receipt },
-  { name: 'Reports', href: '/reports', icon: BarChart3 },
+  { name: 'Settings', href: '/settings', icon: Settings },
   { name: 'Insights', href: '/insights', icon: Lightbulb }
 ];
 

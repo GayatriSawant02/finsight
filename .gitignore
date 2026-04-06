@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-# dependencies
-node_modules/
-
-# build files
-dist
-dist-ssr
-
-# env files
-.env
-.env.*
-
-# logs
-*.log
-
-# editor files
-.vscode/
-.idea
-.DS_Store
-
-# cache
-.cache
-.parcel-cache
-
-# typescript
-*.tsbuildinfo
-=======
 # Logs
 logs
 *.log
@@ -164,4 +137,3 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
->>>>>>> 990d2af1a214b065f980e0b89c88dba2b0d321c0

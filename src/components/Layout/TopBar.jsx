@@ -1,4 +1,4 @@
-import { Search, Bell, Moon, Sun, Settings, X, ChevronDown } from 'lucide-react';
+import { Search, Bell, Moon, Sun, X, ChevronDown } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import { useRole } from '../../context/RoleContext';
 import { useState, useEffect, useRef } from 'react';
@@ -36,20 +36,17 @@ export default function TopBar() {
         ? 'bg-[#070B13]/90'
         : 'bg-white/90 border-b border-gray-200'
     }`}>
-      <div className="flex-1 max-w-xl hidden sm:block">
-        <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
-          <input
-            type="text"
-            placeholder="Ask FinSight AI..."
-            className={`w-full ${themeClasses.inputBg} ${themeClasses.inputBorder} rounded-full py-2.5 pl-11 pr-4 text-sm ${themeClasses.inputText} ${themeClasses.inputPlaceholder} focus:outline-none focus:ring-1 focus:ring-blue-500`}
-          />
+      <div className="flex items-center gap-4">
+        <div className="hidden sm:block flex-1 max-w-xl">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+            <input
+              type="text"
+              placeholder="Ask FinSight AI..."
+              className={`w-full ${themeClasses.inputBg} ${themeClasses.inputBorder} rounded-full py-2.5 pl-11 pr-4 text-sm ${themeClasses.inputText} ${themeClasses.inputPlaceholder} focus:outline-none focus:ring-1 focus:ring-blue-500`}
+            />
+          </div>
         </div>
-      </div>
-
-      {/* Mobile top bar just shows logo on left if we want, or nothing since we are mimicking design */}
-      <div className="sm:hidden flex items-center gap-2">
-        <img src="/logo.png" alt="FinSight Logo" className="h-6 object-contain filter brightness-0 invert" />
       </div>
 
       <div className="flex items-center gap-4 lg:gap-6 ml-auto">
@@ -69,59 +66,62 @@ export default function TopBar() {
           <Bell size={20} />
           <div className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border border-black translate-x-1/3 -translate-y-1/3"></div>
         </div>
-        <div className={`sm:hidden cursor-pointer transition-colors ${themeClasses.iconPrimary}`}>
-          <Settings size={20} />
-        </div>
-        <div ref={roleRef} className={`hidden lg:flex items-center gap-3 ${isDarkMode ? 'border-l border-gray-800' : 'border-l border-gray-300'} pl-6 relative`}>
-           <div 
-             className="text-right cursor-pointer hover:opacity-80 transition-opacity"
-             onClick={() => setShowRoleDropdown(!showRoleDropdown)}
-           >
-              <p className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'} flex items-center gap-2`}>
-                {userRole === 'admin' ? 'Admin Panel' : 'Viewer Panel'}
-                <ChevronDown size={16} className={`transition-transform ${showRoleDropdown ? 'rotate-180' : ''}`} />
-              </p>
-              <p className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-                {userRole === 'admin' ? 'Full Access' : 'View Only'}
-              </p>
-           </div>
-           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" alt="Admin" className="w-9 h-9 rounded-full bg-blue-600/20" />
-
-           {/* Role Dropdown Menu */}
-           {showRoleDropdown && (
-             <div className={`absolute top-full right-0 mt-2 w-48 ${themeClasses.cardBg} border ${themeClasses.cardBorder} rounded-lg shadow-lg z-50`}>
-               <button
-                 onClick={() => {
-                   switchRole('admin');
-                   setShowRoleDropdown(false);
-                 }}
-                 className={`w-full text-left px-4 py-3 flex items-center justify-between hover:${themeClasses.bgSecondary} transition-colors ${userRole === 'admin' ? `${themeClasses.bgSecondary} border-l-2 border-blue-500` : ''}`}
-               >
-                 <div>
-                   <p className={`text-sm font-medium ${themeClasses.textPrimary}`}>Admin Panel</p>
-                   <p className={`text-xs ${themeClasses.textSecondary}`}>Full Access</p>
-                 </div>
-                 {userRole === 'admin' && <div className="w-2 h-2 rounded-full bg-blue-500"></div>}
-               </button>
-               <button
-                 onClick={() => {
-                   switchRole('viewer');
-                   setShowRoleDropdown(false);
-                 }}
-                 className={`w-full text-left px-4 py-3 flex items-center justify-between hover:${themeClasses.bgSecondary} transition-colors border-t ${themeClasses.cardBorder} ${userRole === 'viewer' ? `${themeClasses.bgSecondary} border-l-2 border-blue-500` : ''}`}
-               >
-                 <div>
-                   <p className={`text-sm font-medium ${themeClasses.textPrimary}`}>Viewer Panel</p>
-                   <p className={`text-xs ${themeClasses.textSecondary}`}>View Only</p>
-                 </div>
-                 {userRole === 'viewer' && <div className="w-2 h-2 rounded-full bg-blue-500"></div>}
-               </button>
+        <div ref={roleRef} className="relative">
+          <div className={`hidden lg:flex items-center gap-3 ${isDarkMode ? 'border-l border-gray-800' : 'border-l border-gray-300'} pl-6 relative`}>
+             <div 
+               className="text-right cursor-pointer hover:opacity-80 transition-opacity"
+               onClick={() => setShowRoleDropdown(!showRoleDropdown)}
+             >
+                <p className={`text-sm font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'} flex items-center gap-2`}>
+                  {userRole === 'admin' ? 'Admin Panel' : 'Viewer Panel'}
+                  <ChevronDown size={16} className={`transition-transform ${showRoleDropdown ? 'rotate-180' : ''}`} />
+                </p>
+                <p className={`text-xs ${isDarkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                  {userRole === 'admin' ? 'Full Access' : 'View Only'}
+                </p>
              </div>
-           )}
-        </div>
-        {/* Mobile Profile Av */}
-        <div className="lg:hidden ml-2 w-8 h-8 rounded-full bg-blue-600 overflow-hidden flex-shrink-0">
-          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Julian" alt="Julian" className="w-full h-full object-cover" />
+             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" alt="Admin" className="w-9 h-9 rounded-full bg-blue-600/20" />
+          </div>
+
+          <div className="lg:hidden ml-2 relative">
+            <button
+              onClick={() => setShowRoleDropdown(!showRoleDropdown)}
+              className="w-8 h-8 rounded-full bg-blue-600 overflow-hidden flex items-center justify-center"
+            >
+              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Julian" alt="User" className="w-full h-full object-cover" />
+            </button>
+          </div>
+
+          {showRoleDropdown && (
+            <div className={`absolute top-full right-0 mt-2 w-48 ${themeClasses.cardBg} border ${themeClasses.cardBorder} rounded-lg shadow-lg z-50`}>
+              <button
+                onClick={() => {
+                  switchRole('admin');
+                  setShowRoleDropdown(false);
+                }}
+                className={`w-full text-left px-4 py-3 flex items-center justify-between hover:${themeClasses.bgSecondary} transition-colors ${userRole === 'admin' ? `${themeClasses.bgSecondary} border-l-2 border-blue-500` : ''}`}
+              >
+                <div>
+                  <p className={`text-sm font-medium ${themeClasses.textPrimary}`}>Admin Panel</p>
+                  <p className={`text-xs ${themeClasses.textSecondary}`}>Full Access</p>
+                </div>
+                {userRole === 'admin' && <div className="w-2 h-2 rounded-full bg-blue-500"></div>}
+              </button>
+              <button
+                onClick={() => {
+                  switchRole('viewer');
+                  setShowRoleDropdown(false);
+                }}
+                className={`w-full text-left px-4 py-3 flex items-center justify-between hover:${themeClasses.bgSecondary} transition-colors border-t ${themeClasses.cardBorder} ${userRole === 'viewer' ? `${themeClasses.bgSecondary} border-l-2 border-blue-500` : ''}`}
+              >
+                <div>
+                  <p className={`text-sm font-medium ${themeClasses.textPrimary}`}>Viewer Panel</p>
+                  <p className={`text-xs ${themeClasses.textSecondary}`}>View Only</p>
+                </div>
+                {userRole === 'viewer' && <div className="w-2 h-2 rounded-full bg-blue-500"></div>}
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

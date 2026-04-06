@@ -24,7 +24,7 @@ FinSight is a modern personal finance dashboard built with React and Vite. It of
 ## Project Structure
 
 - `src/components` - shared layout components, navigation, top bar
-- `src/pages` - application screens: Dashboard, Transactions, Reports, Insights, Settings
+- `src/pages` - application screens: Dashboard, Transactions, Insights, Settings
 - `src/context` - global state providers for theme, transactions, and user role
 - `src/pages/Transactions` - transaction data, filters, table, and modals
 - `src/pages/Dashboard` - summary cards, upcoming bills, and visualizations
@@ -57,17 +57,12 @@ The transaction view is built with both desktop and mobile experiences in mind, 
 - Responsive desktop table and mobile transaction cards
 - Conditional edit/delete controls based on selected role
 
-### Reports
-
-- Responsive report cards and charts
-- Comparison table and income source summary
-- Theme-aware styling across report widgets
-
 ### Insights
 
 - Spending insights and anomaly cards
 - Savings opportunities and smart suggestions
 - Weekly progress highlights
+- PDF export functionality
 
 ### Settings
 

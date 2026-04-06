@@ -1,10 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Receipt, BarChart3, Lightbulb, Settings, Eye, TrendingUp } from 'lucide-react';
+import { LayoutDashboard, Receipt, Lightbulb, Settings, Eye, TrendingUp } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { name: 'Transactions', href: '/transactions', icon: Receipt },
-  { name: 'Reports', href: '/reports', icon: BarChart3 },
   { name: 'Insights', href: '/insights', icon: Lightbulb },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
