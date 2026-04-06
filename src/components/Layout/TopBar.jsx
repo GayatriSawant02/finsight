@@ -37,6 +37,10 @@ export default function TopBar() {
         : 'bg-white/90 border-b border-gray-200'
     }`}>
       <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:hidden">
+          <img src="/finsight_logo.png" alt="FinSight Logo" className="h-8 object-contain" />
+          <span className={`text-xl font-black tracking-wider ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>FinSight</span>
+        </div>
         <div className="hidden sm:block flex-1 max-w-xl">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
