@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
 import { Wallet, ShoppingCart, PiggyBank, Percent } from 'lucide-react';
 import { useTransactions } from '../../context/TransactionsContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function ReportsSummaryCards() {
   const { transactions } = useTransactions();
+  const { themeClasses } = useTheme();
 
   const metrics = useMemo(() => {
     const currentMonth = 2; // March 2026
@@ -90,7 +92,7 @@ export default function ReportsSummaryCards() {
       {cards.map((card, idx) => {
         const Icon = card.icon;
         return (
-          <div key={idx} className="bg-[#0E1524] rounded-xl p-5 border border-[#1E293B] flex flex-col justify-between h-[140px] lg:h-[150px]">
+          <div key={idx} className={`${themeClasses.cardBg} rounded-xl p-5 border ${themeClasses.cardBorder} flex flex-col justify-between h-[140px] lg:h-[150px]`}>
             <div className="flex justify-between items-start mb-3">
               <div className={`p-2 rounded-lg ${card.iconBg}`}>
                 <Icon className={card.iconColor} size={16} />
@@ -100,11 +102,11 @@ export default function ReportsSummaryCards() {
               </div>
             </div>
             <div>
-              <p className="text-[9px] text-gray-500 font-bold tracking-wider mb-1 uppercase">{card.title}</p>
-              <h3 className="text-xl lg:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white to-gray-300">
+              <p className={`text-[10px] ${themeClasses.textMuted} font-semibold tracking-wider mb-1 uppercase`}>{card.title}</p>
+              <h3 className={`text-xl lg:text-2xl font-bold ${themeClasses.textPrimary} mb-1`}>
                 {card.value}
               </h3>
-              <p className="text-[10px] text-gray-500 mt-1 hidden lg:block">{card.subtitle}</p>
+              <p className={`text-[10px] ${themeClasses.textSecondary}`}>{card.subtitle}</p>
             </div>
           </div>
         );

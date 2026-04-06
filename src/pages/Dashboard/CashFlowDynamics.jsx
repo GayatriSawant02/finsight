@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
 import { AreaChart, Area, XAxis, ResponsiveContainer, Tooltip, CartesianGrid } from 'recharts';
 import { useTransactions } from '../../context/TransactionsContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function CashFlowDynamics() {
   const { transactions } = useTransactions();
+  const { themeClasses } = useTheme();
 
   const data = useMemo(() => {
     
@@ -30,22 +32,22 @@ export default function CashFlowDynamics() {
   }, [transactions]);
 
   return (
-    <div className="bg-[#0E1524] rounded-xl p-6 border border-[#151C2C] w-full">
+    <div className={`${themeClasses.cardBg} rounded-xl p-6 border ${themeClasses.cardBorder} w-full`}>
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-6">
         <div>
-          <h3 className="font-semibold text-white">Cash Flow Dynamics</h3>
-          <p className="text-xs text-gray-400">7-month rolling analysis of income vs liquidity retention</p>
+          <h3 className={`font-semibold ${themeClasses.textPrimary}`}>Cash Flow Dynamics</h3>
+          <p className={`text-xs ${themeClasses.textSecondary}`}>7-month rolling analysis of income vs liquidity retention</p>
         </div>
         <div className="flex items-center gap-4 mt-4 sm:mt-0 text-xs">
           <div className="flex items-center gap-2">
             <div className="w-3 h-1 bg-blue-600 rounded"></div>
-            <span className="text-gray-400 font-medium tracking-wide">Income</span>
+            <span className={`${themeClasses.textSecondary} font-medium tracking-wide`}>Income</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-1 bg-red-500 rounded"></div>
-            <span className="text-gray-400 font-medium tracking-wide">Expenses</span>
+            <span className={`${themeClasses.textSecondary} font-medium tracking-wide`}>Expenses</span>
           </div>
-          <div className="bg-[#111827] px-2 py-1 rounded text-gray-400 text-[10px] ml-2">
+          <div className={`${themeClasses.bgSecondary} px-2 py-1 rounded ${themeClasses.textSecondary} text-[10px] ml-2`}>
             Sep 25 - Mar 26 ▼
           </div>
         </div>

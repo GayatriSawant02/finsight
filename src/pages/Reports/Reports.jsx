@@ -1,5 +1,7 @@
 import ReportsHeader from './ReportsHeader';
 import ReportsSummaryCards from './ReportsSummaryCards';
+import SpendingTrends from './SpendingTrends';
+import FinancialInsights from './FinancialInsights';
 import CategoryBreakdown from './CategoryBreakdown';
 import IncomeSources from './IncomeSources';
 import ComparisonTable from './ComparisonTable';
@@ -7,20 +9,32 @@ import MobileExportCard from './MobileExportCard';
 
 export default function Reports() {
   return (
-    <div className="p-4 lg:p-8 lg:pt-8 w-full max-w-[1200px] mx-auto min-h-screen">
+    <div className="p-4 lg:p-8 lg:pt-8 w-full max-w-[1400px] mx-auto min-h-screen reports-container">
       <ReportsHeader />
       <ReportsSummaryCards />
       
-      {/* 9 columns total on desktop: Left is 5, Right is 4 (or similar ratio) */}
-      <div className="grid grid-cols-1 lg:grid-cols-9 gap-6">
-        <CategoryBreakdown />
-        <IncomeSources />
+      {/* Spending Trends Chart - Full width on all screens */}
+      <SpendingTrends />
+      
+      {/* Financial Insights - Full width on all screens */}
+      <FinancialInsights />
+      
+      {/* Category Breakdown and Income Sources - Responsive grid */}
+      <div className="grid grid-cols-1 xl:grid-cols-9 gap-4 lg:gap-6">
+        <div className="xl:col-span-5">
+          <CategoryBreakdown />
+        </div>
+        <div className="xl:col-span-4">
+          <IncomeSources />
+        </div>
       </div>
 
-      {/* Contains desktop-first detailed tables */}
-      <ComparisonTable />
+      {/* Comparison Table - Full width with responsive padding */}
+      <div className="mt-6">
+        <ComparisonTable />
+      </div>
       
-      {/* Bottom overlay/card for mobile layout specifically */}
+      {/* Mobile Export Card */}
       <MobileExportCard />
     </div>
   );

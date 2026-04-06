@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 import { useTransactions } from '../../context/TransactionsContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function SpendingCategories() {
   const { currentMonthTransactions, monthlyExpenses } = useTransactions();
+  const { themeClasses } = useTheme();
 
   const categoriesData = useMemo(() => {
     const totals = currentMonthTransactions
@@ -39,10 +41,10 @@ export default function SpendingCategories() {
   const discretionary = monthlyExpenses;
 
   return (
-    <div className="bg-[#0E1524] rounded-xl p-6 border border-[#151C2C] flex flex-col h-[350px]">
+    <div className={`${themeClasses.cardBg} rounded-xl p-6 border ${themeClasses.cardBorder} flex flex-col h-[350px]`}>
       <div className="mb-6">
-        <h3 className="font-semibold text-white">Top Spending Categories</h3>
-        <p className="text-xs text-gray-400">Capital leakage analysis</p>
+        <h3 className={`font-semibold ${themeClasses.textPrimary}`}>Top Spending Categories</h3>
+        <p className={`text-xs ${themeClasses.textSecondary}`}>Capital leakage analysis</p>
       </div>
 
       <div className="space-y-6 flex-1 flex flex-col justify-center">

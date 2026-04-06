@@ -1,6 +1,8 @@
 import { Receipt, PieChart, LineChart } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function NotificationsSection() {
+  const { themeClasses } = useTheme();
   const notifs = [
     {
       title: 'Bill Reminders',
@@ -34,20 +36,20 @@ export default function NotificationsSection() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {notifs.map((item, idx) => (
-        <div key={idx} className="bg-[#0E1524] rounded-xl p-6 border border-[#1E293B] shadow-lg flex flex-col justify-between">
+        <div key={idx} className={`${themeClasses.cardBg} rounded-xl p-6 border ${themeClasses.cardBorder} shadow-lg flex flex-col justify-between`}>
           <div className="flex justify-between items-start mb-6">
              <div className={`p-2 rounded-lg ${item.iconBg}`}>
                <item.icon size={16} className={item.iconColor} />
              </div>
              
              {/* Toggle Switch */}
-             <div className={`w-10 h-5 rounded-full relative cursor-pointer shadow-inner transition-colors ${item.active ? item.toggleColor : 'bg-[#151C2C] border border-[#1E293B]'}`}>
+             <div className={`w-10 h-5 rounded-full relative cursor-pointer shadow-inner transition-colors ${item.active ? item.toggleColor : themeClasses.bgSecondary + ' border ' + themeClasses.cardBorder}`}>
                 <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-all ${item.active ? 'right-1' : 'left-1'}`}></div>
              </div>
           </div>
           <div>
-            <h4 className="text-white font-bold text-sm mb-1.5">{item.title}</h4>
-            <p className="text-[11px] text-gray-500 leading-relaxed">{item.desc}</p>
+            <h4 className={`${themeClasses.textPrimary} font-bold text-sm mb-1.5`}>{item.title}</h4>
+            <p className={`text-[11px] ${themeClasses.textMuted} leading-relaxed`}>{item.desc}</p>
           </div>
         </div>
       ))}

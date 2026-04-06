@@ -1,7 +1,9 @@
 import { useTransactions } from '../../context/TransactionsContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function MetricsCards() {
   const { monthlyIncome, currentMonthTransactions } = useTransactions();
+  const { themeClasses } = useTheme();
 
   // Compute top category loosely
   const categoryTotals = currentMonthTransactions.reduce((acc, t) => {
@@ -15,7 +17,7 @@ export default function MetricsCards() {
 
   return (
     <div className="hidden lg:grid grid-cols-3 gap-6">
-      <div className="bg-[#0c1838] border border-blue-900/50 rounded-xl p-6 relative overflow-hidden">
+      <div className="bg-blue-600 border border-blue-500/50 rounded-xl p-6 relative overflow-hidden">
         <div className="absolute right-[-20%] top-[-20%] w-[150px] h-[150px] bg-blue-600/20 blur-3xl rounded-full"></div>
         <p className="text-[10px] text-blue-400 font-bold uppercase tracking-wider mb-2">Monthly Inflow</p>
         <h3 className="text-3xl font-bold text-white mb-2">${monthlyIncome.toLocaleString('en-US', {minimumFractionDigits: 2})}</h3>
@@ -24,16 +26,16 @@ export default function MetricsCards() {
         </p>
       </div>
 
-      <div className="bg-[#0E1524] border border-[#1E293B] rounded-xl p-6">
-        <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-2">Pending Clearances</p>
-        <h3 className="text-3xl font-bold text-white mb-2">08</h3>
-        <p className="text-xs text-gray-400">Estimated value: $3,210.00</p>
+      <div className={`${themeClasses.cardBg} border ${themeClasses.cardBorder} rounded-xl p-6`}>
+        <p className={`text-[10px] ${themeClasses.textMuted} font-bold uppercase tracking-wider mb-2`}>Pending Clearances</p>
+        <h3 className={`text-3xl font-bold ${themeClasses.textPrimary} mb-2`}>08</h3>
+        <p className={`text-xs ${themeClasses.textSecondary}`}>Estimated value: $3,210.00</p>
       </div>
 
-      <div className="bg-[#0E1524] border border-[#1E293B] rounded-xl p-6">
-        <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-2">Top Category</p>
-        <h3 className="text-3xl font-bold text-white mb-2">{topCategory[0]}</h3>
-        <p className="text-xs text-gray-400 uppercase">Est. spend volume</p>
+      <div className={`${themeClasses.cardBg} border ${themeClasses.cardBorder} rounded-xl p-6`}>
+        <p className={`text-[10px] ${themeClasses.textMuted} font-bold uppercase tracking-wider mb-2`}>Top Category</p>
+        <h3 className={`text-3xl font-bold ${themeClasses.textPrimary} mb-2`}>{topCategory[0]}</h3>
+        <p className={`text-xs ${themeClasses.textSecondary} uppercase`}>Est. spend volume</p>
       </div>
     </div>
   );

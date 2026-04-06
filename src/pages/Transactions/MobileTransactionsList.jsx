@@ -1,6 +1,10 @@
 import { Utensils, Plane, ShoppingCart, CreditCard, Search, Trash2 } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
+import { useRole } from '../../context/RoleContext';
 
 export default function MobileTransactionsList({ transactions, searchQuery, setSearchQuery, onDelete }) {
+  const { themeClasses } = useTheme();
+  const { userRole } = useRole();
   const getIcon = (category) => {
     switch(category) {
       case 'Food': return <Utensils size={20} className="text-orange-500" />;
@@ -20,18 +24,18 @@ export default function MobileTransactionsList({ transactions, searchQuery, setS
   return (
     <div className="lg:hidden">
       <div className="relative mb-6">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+        <Search className={`absolute left-4 top-1/2 -translate-y-1/2 ${themeClasses.textMuted}`} size={18} />
         <input
           type="text"
           placeholder="Search transactions..."
-          className="w-full bg-[#111827] border border-[#1e293b] rounded-xl py-3 pl-12 pr-4 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-blue-500"
+          className={`w-full ${themeClasses.inputBg} border ${themeClasses.inputBorder} rounded-xl py-3 pl-12 pr-4 text-sm ${themeClasses.inputText} ${themeClasses.inputPlaceholder} focus:outline-none focus:border-blue-500`}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
 
       <div className="flex justify-between items-center mb-4">
-        <h3 className="font-semibold text-white">Recent Transactions</h3>
+        <h3 className={`font-semibold ${themeClasses.textPrimary}`}>Recent Transactions</h3>
         <button className="text-sm font-medium text-blue-500">See All</button>
       </div>
 
@@ -42,18 +46,18 @@ export default function MobileTransactionsList({ transactions, searchQuery, setS
           </div>
         )}
         {transactions.map((t) => (
-          <div key={t.id} className="bg-[#111827] p-4 rounded-xl flex items-center justify-between border border-[#1e293b] shadow-sm">
+          <div key={t.id} className={`${themeClasses.cardBg} p-4 rounded-xl flex items-center justify-between border ${themeClasses.cardBorder} shadow-sm`}>
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#1A233A] flex items-center justify-center flex-shrink-0">
+              <div className={`w-12 h-12 rounded-xl ${themeClasses.bgSecondary} flex items-center justify-center flex-shrink-0`}>
                 {getIcon(t.category)}
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-gray-200 mb-1 leading-tight">{t.merchant}</span>
+                <span className={`font-semibold ${themeClasses.textPrimary} mb-1 leading-tight`}>{t.merchant}</span>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="px-2 py-0.5 rounded bg-[#1e293b] text-gray-300 text-[10px] font-medium border border-[#2a344a]">
+                  <span className={`px-2 py-0.5 rounded ${themeClasses.bgSecondary} ${themeClasses.textPrimary} text-[10px] font-medium border ${themeClasses.cardBorder}`}>
                     {t.category}
                   </span>
-                  <span className="text-[10px] text-gray-500">{t.date}</span>
+                  <span className={`text-[10px] ${themeClasses.textMuted}`}>{t.date}</span>
                 </div>
               </div>
             </div>
@@ -61,12 +65,14 @@ export default function MobileTransactionsList({ transactions, searchQuery, setS
                <span className={`text-sm font-bold tracking-wide whitespace-nowrap ${t.amount < 0 ? 'text-red-500' : 'text-emerald-500'}`}>
                  {formatAmount(t.amount)}
                </span>
-               <button 
-                 onClick={() => onDelete(t.id)} 
-                 className="text-gray-600 hover:text-red-500 transition-colors p-1"
-               >
-                 <Trash2 size={14} />
-               </button>
+               {userRole === 'admin' && (
+                 <button 
+                   onClick={() => onDelete(t.id)} 
+                   className={`${themeClasses.textMuted} hover:text-red-500 transition-colors p-1`}
+                 >
+                   <Trash2 size={14} />
+                 </button>
+               )}
             </div>
           </div>
         ))}

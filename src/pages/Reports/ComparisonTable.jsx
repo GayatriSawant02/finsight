@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
 import { ArrowRight, TrendingUp, TrendingDown } from 'lucide-react';
 import { useTransactions } from '../../context/TransactionsContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function ComparisonTable() {
   const { transactions } = useTransactions();
+  const { themeClasses } = useTheme();
 
   const tableData = useMemo(() => {
     const currentMonth = 2; // March 2026
@@ -54,11 +56,11 @@ export default function ComparisonTable() {
   }, [transactions]);
 
   return (
-    <div className="bg-[#0E1524] rounded-xl border border-[#1E293B] overflow-hidden mt-6 mb-20 lg:mb-8">
-      <div className="p-6 border-b border-[#1E293B] flex flex-col md:flex-row justify-between items-start md:items-center">
+    <div className={`${themeClasses.cardBg} rounded-xl border ${themeClasses.cardBorder} overflow-hidden`}>
+      <div className={`p-6 border-b ${themeClasses.cardBorder} flex flex-col md:flex-row justify-between items-start md:items-center`}>
         <div>
-           <h3 className="text-sm font-semibold text-white">Comparison with Last Month</h3>
-           <p className="text-xs text-gray-500">Tracking historical delta across core metrics.</p>
+           <h3 className={`text-sm font-semibold ${themeClasses.textPrimary}`}>Comparison with Last Month</h3>
+           <p className={`text-xs ${themeClasses.textMuted}`}>Tracking historical delta across core metrics.</p>
         </div>
         <button className="text-blue-500 hover:text-blue-400 text-xs font-semibold flex items-center gap-1 mt-4 md:mt-0 transition-colors">
           Detailed Ledger <ArrowRight size={14} />
@@ -68,12 +70,12 @@ export default function ComparisonTable() {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse min-w-[700px]">
           <thead>
-            <tr className="border-b border-[#1E293B] bg-[#0A0F1D]/50">
-              <th className="py-4 px-6 text-[9px] font-bold text-gray-500 uppercase tracking-wider">Performance Metric</th>
-              <th className="py-4 px-6 text-[9px] font-bold text-gray-500 uppercase tracking-wider">Current Value</th>
-              <th className="py-4 px-6 text-[9px] font-bold text-gray-500 uppercase tracking-wider">Last Month</th>
-              <th className="py-4 px-6 text-[9px] font-bold text-gray-500 uppercase tracking-wider">Absolute Change</th>
-              <th className="py-4 px-6 text-[9px] font-bold text-gray-500 uppercase tracking-wider text-right">Trend</th>
+            <tr className={`border-b ${themeClasses.cardBorder} ${themeClasses.bgSecondary}`}>
+              <th className={`py-3 lg:py-4 px-3 lg:px-6 text-[9px] font-bold ${themeClasses.textMuted} uppercase tracking-wider`}>Performance Metric</th>
+              <th className={`py-3 lg:py-4 px-3 lg:px-6 text-[9px] font-bold ${themeClasses.textMuted} uppercase tracking-wider`}>Current Value</th>
+              <th className={`py-3 lg:py-4 px-3 lg:px-6 text-[9px] font-bold ${themeClasses.textMuted} uppercase tracking-wider`}>Last Month</th>
+              <th className={`py-3 lg:py-4 px-3 lg:px-6 text-[9px] font-bold ${themeClasses.textMuted} uppercase tracking-wider`}>Absolute Change</th>
+              <th className={`py-3 lg:py-4 px-3 lg:px-6 text-[9px] font-bold ${themeClasses.textMuted} uppercase tracking-wider text-right`}>Trend</th>
             </tr>
           </thead>
           <tbody>
@@ -87,14 +89,14 @@ export default function ComparisonTable() {
                }
 
                return (
-                <tr key={idx} className="border-b border-[#1E293B]/50 hover:bg-[#111827] transition-colors">
-                  <td className="py-4 px-6 text-sm font-semibold text-gray-300">{row.metric}</td>
-                  <td className="py-4 px-6 text-sm text-gray-400">{row.current}</td>
-                  <td className="py-4 px-6 text-sm text-gray-500">{row.past}</td>
-                  <td className={`py-4 px-6 text-sm font-bold tracking-wide ${row.isPositive ? 'text-emerald-500' : 'text-red-500'}`}>
+                <tr key={idx} className={`border-b ${themeClasses.cardBorder}/50 hover:${themeClasses.bgSecondary} transition-colors`}>
+                  <td className={`py-3 lg:py-4 px-3 lg:px-6 text-sm font-semibold ${themeClasses.textPrimary}`}>{row.metric}</td>
+                  <td className={`py-3 lg:py-4 px-3 lg:px-6 text-sm ${themeClasses.textSecondary}`}>{row.current}</td>
+                  <td className={`py-3 lg:py-4 px-3 lg:px-6 text-sm ${themeClasses.textMuted}`}>{row.past}</td>
+                  <td className={`py-3 lg:py-4 px-3 lg:px-6 text-sm font-bold tracking-wide ${row.isPositive ? 'text-emerald-500' : 'text-red-500'}`}>
                     {row.change}
                   </td>
-                  <td className="py-4 px-6 text-right">
+                  <td className="py-3 lg:py-4 px-3 lg:px-6 text-right">
                     <span className={`inline-flex items-center gap-1 text-sm font-semibold ${trendColor}`}>
                        ~ {icon} {row.trend}
                     </span>

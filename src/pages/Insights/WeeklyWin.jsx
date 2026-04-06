@@ -1,6 +1,8 @@
 import { CheckCircle2 } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function WeeklyWin() {
+  const { themeClasses } = useTheme();
   return (
     <div className="bg-blue-600 rounded-xl p-6 shadow-xl shadow-blue-900/20 mb-6 lg:mb-0 relative overflow-hidden">
       {/* Decorative background glow */}
@@ -24,7 +26,7 @@ export default function WeeklyWin() {
 
       <div className="mt-6 flex justify-between items-center text-xs text-blue-100 font-medium relative z-10">
          <span>Expenses vs Last Week</span>
-         <span>-8%</span>
+         <span className="text-white font-semibold">-8%</span>
       </div>
       
       <div className="mt-2 h-1.5 w-full rounded-full bg-blue-800 overflow-hidden relative z-10 border border-blue-500/30">

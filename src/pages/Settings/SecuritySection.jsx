@@ -1,6 +1,8 @@
 import { LogOut } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function SecuritySection() {
+  const { themeClasses } = useTheme();
   return (
     <div className="flex flex-col gap-4 h-full">
       {/* Blue Security Card */}
@@ -21,9 +23,9 @@ export default function SecuritySection() {
       </div>
 
       {/* Logout Button */}
-      <button className="w-full bg-[#0E1524] hover:bg-[#151C2C] border border-[#1E293B] transition-colors rounded-xl p-4 flex items-center justify-center gap-2 group">
-        <LogOut size={16} className="text-gray-400 group-hover:text-red-500 transition-colors" />
-        <span className="text-sm font-semibold text-gray-300 group-hover:text-white transition-colors">Sign out of all sessions</span>
+      <button className={`w-full ${themeClasses.cardBg} hover:${themeClasses.bgSecondary} border ${themeClasses.cardBorder} transition-colors rounded-xl p-4 flex items-center justify-center gap-2 group`}>
+        <LogOut size={16} className={`${themeClasses.textMuted} group-hover:text-red-500 transition-colors`} />
+        <span className={`text-sm font-semibold ${themeClasses.textSecondary} group-hover:${themeClasses.textPrimary} transition-colors`}>Sign out of all sessions</span>
       </button>
     </div>
   );

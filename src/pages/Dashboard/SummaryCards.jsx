@@ -1,8 +1,10 @@
 import { Building2, Landmark, ShoppingBag, PiggyBank, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 import { useTransactions } from '../../context/TransactionsContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function SummaryCards() {
   const { monthlyIncome, monthlyExpenses, transactions } = useTransactions();
+  const { themeClasses, isDarkMode } = useTheme();
   
   // Basic mock static total balance base PLUS net income over full period
   const allTimeNet = transactions.reduce((sum, t) => sum + t.amount, 0);
@@ -56,7 +58,7 @@ export default function SummaryCards() {
       {cards.map((card, idx) => {
         const Icon = card.icon;
         return (
-          <div key={idx} className="bg-[#0E1524] rounded-xl p-5 border border-[#151C2C] flex flex-col justify-between h-[120px]">
+          <div key={idx} className={`${themeClasses.cardBg} rounded-xl p-5 border ${themeClasses.cardBorder} flex flex-col justify-between h-[120px]`}>
             <div className="flex justify-between items-start mb-2">
               <div className={`p-2 rounded-lg ${card.bg}`}>
                 <Icon className={card.color} size={16} />
@@ -68,14 +70,16 @@ export default function SummaryCards() {
                 </div>
               )}
               {card.progress && (
-                <div className="w-12 h-1.5 bg-[#151C2C] rounded-full overflow-hidden border border-[#1E293B]">
+                <div className={`w-12 h-1.5 ${themeClasses.bgTertiary} rounded-full overflow-hidden border ${themeClasses.cardBorder}`}>
                   <div className="bg-emerald-500 h-full" style={{ width: `${Math.max(0, card.progressVal)}%` }}></div>
                 </div>
               )}
             </div>
             <div>
-              <p className="text-[10px] text-gray-500 font-semibold tracking-wider mb-1 uppercase">{card.title}</p>
-              <h3 className="text-xl lg:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white to-gray-400">
+              <p className={`text-[10px] ${themeClasses.textMuted} font-semibold tracking-wider mb-1 uppercase`}>{card.title}</p>
+              <h3 className={`text-xl lg:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-br ${
+                isDarkMode ? 'from-white to-gray-400' : 'from-gray-900 to-gray-600'
+              }`}>
                 {card.value}
               </h3>
             </div>

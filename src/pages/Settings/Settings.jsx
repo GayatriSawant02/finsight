@@ -4,13 +4,15 @@ import NotificationsSection from './NotificationsSection';
 import RegionThemeSection from './RegionThemeSection';
 import ConnectedAccountsSection from './ConnectedAccountsSection';
 import DataPrivacySection from './DataPrivacySection';
+import { useTheme } from '../../context/ThemeContext';
 
 export default function Settings() {
+  const { themeClasses } = useTheme();
   return (
     <div className="p-4 lg:p-8 lg:pt-8 w-full max-w-[1000px] mx-auto min-h-screen">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white mb-2">Settings</h1>
-        <p className="text-gray-400 text-sm">Manage your financial workspace and security preferences.</p>
+        <h1 className={`text-2xl font-bold ${themeClasses.textPrimary} mb-2`}>Settings</h1>
+        <p className={`text-sm ${themeClasses.textSecondary}`}>Manage your financial workspace and security preferences.</p>
       </div>
 
       {/* Row 1: Profile & Security (60/40 split on Desktop) */}

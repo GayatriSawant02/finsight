@@ -1,22 +1,82 @@
-HEAD
+# FinSight
 
-# React + Vite
+FinSight is a modern personal finance dashboard built with React and Vite. It offers an intelligent transaction overview, reporting, insights, and user role controls to support both administrator and viewer workflows.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Setup Instructions
 
-Currently, two official plugins are available:
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+3. Open the app at the local address shown by Vite, typically:
+   ```bash
+   http://localhost:5173
+   ```
+4. Build for production:
+   ```bash
+   npm run build
+   ```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Project Structure
 
-## React Compiler
+- `src/components` - shared layout components, navigation, top bar
+- `src/pages` - application screens: Dashboard, Transactions, Reports, Insights, Settings
+- `src/context` - global state providers for theme, transactions, and user role
+- `src/pages/Transactions` - transaction data, filters, table, and modals
+- `src/pages/Dashboard` - summary cards, upcoming bills, and visualizations
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Approach
 
-## Expanding the ESLint configuration
+The app uses a theme-driven design system with a `ThemeContext` to manage light/dark mode at the application level. UI styling is applied through reusable class mappings so components render consistently across both themes.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+A `RoleContext` manages user permissions and persists the selected role in local storage. This enables a clear distinction between:
 
-# finsight
+- `Admin Panel` — full transaction management (add, edit, delete)
+- `Viewer Panel` — read-only transaction access
 
-7b17d55d8ab0209920c1df12a047000dddeea6f2
+The transaction view is built with both desktop and mobile experiences in mind, including responsive filters, a table layout, and a mobile-friendly transaction list.
+
+## Features
+
+### Dashboard
+
+- Summary cards for income, spending, and category insights
+- Light and dark theme support
+- Upcoming bills card with a action button that shows a success message when processing payments
+- Notification dropdown in the top bar
+
+### Transactions
+
+- Role-based permissions for admin and viewer modes
+- Add transaction modal for admins
+- Filterable transaction list by type, category, and search text
+- Responsive desktop table and mobile transaction cards
+- Conditional edit/delete controls based on selected role
+
+### Reports
+
+- Responsive report cards and charts
+- Comparison table and income source summary
+- Theme-aware styling across report widgets
+
+### Insights
+
+- Spending insights and anomaly cards
+- Savings opportunities and smart suggestions
+- Weekly progress highlights
+
+### Settings
+
+- Regional settings for currency and timezone display
+- Interface theme selection with light/dark mode controls
+- Persistent theme preference stored in local storage
+
+## Notes
+
+- The app uses mock transaction data and local state for demonstration purposes.
+- Role selection is saved in local storage so the current panel persists across refreshes.
+- Theme mode is also persisted between sessions.

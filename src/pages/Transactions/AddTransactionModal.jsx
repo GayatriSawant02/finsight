@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
 import { CATEGORIES, TYPES } from './mockData';
 
 export default function AddTransactionModal({ isOpen, onClose, onAdd }) {
+  const { themeClasses } = useTheme();
   const [formData, setFormData] = useState({
     merchant: '',
     date: '',
@@ -38,21 +40,21 @@ export default function AddTransactionModal({ isOpen, onClose, onAdd }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="bg-[#0E1524] border border-[#1E293B] rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
-        <div className="flex justify-between items-center p-6 border-b border-[#1E293B] bg-[#0A0F1D]">
-          <h2 className="text-xl font-semibold text-white">Add Transaction</h2>
-          <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
+      <div className={`${themeClasses.cardBg} border ${themeClasses.cardBorder} rounded-xl shadow-2xl w-full max-w-md overflow-hidden`}>
+        <div className={`flex justify-between items-center p-6 border-b ${themeClasses.cardBorder} ${themeClasses.bgSecondary}`}>
+          <h2 className={`text-xl font-semibold ${themeClasses.textPrimary}`}>Add Transaction</h2>
+          <button onClick={onClose} className={`${themeClasses.textMuted} hover:${themeClasses.textPrimary} transition-colors`}>
             <X size={20} />
           </button>
         </div>
         
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="block text-xs text-gray-400 mb-1.5 uppercase font-medium tracking-wider">Merchant / Entity Name</label>
+            <label className={`block text-xs ${themeClasses.textMuted} mb-1.5 uppercase font-medium tracking-wider`}>Merchant / Entity Name</label>
             <input 
               required
               type="text" 
-              className="w-full bg-[#111827] border border-[#1E293B] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+              className={`w-full ${themeClasses.inputBg} border ${themeClasses.inputBorder} rounded-lg px-4 py-2.5 ${themeClasses.inputText} focus:outline-none focus:border-blue-500`}
               placeholder="e.g. Apex Holdings"
               value={formData.merchant}
               onChange={(e) => setFormData({...formData, merchant: e.target.value})}
@@ -61,22 +63,22 @@ export default function AddTransactionModal({ isOpen, onClose, onAdd }) {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-gray-400 mb-1.5 uppercase font-medium tracking-wider">Date</label>
+              <label className={`block text-xs ${themeClasses.textMuted} mb-1.5 uppercase font-medium tracking-wider`}>Date</label>
               <input 
                 required
                 type="date" 
-                className="w-full bg-[#111827] border border-[#1E293B] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                className={`w-full ${themeClasses.inputBg} border ${themeClasses.inputBorder} rounded-lg px-4 py-2.5 ${themeClasses.inputText} focus:outline-none focus:border-blue-500`}
                 value={formData.date}
                 onChange={(e) => setFormData({...formData, date: e.target.value})}
               />
             </div>
             <div>
-              <label className="block text-xs text-gray-400 mb-1.5 uppercase font-medium tracking-wider">Amount ($)</label>
+              <label className={`block text-xs ${themeClasses.textMuted} mb-1.5 uppercase font-medium tracking-wider`}>Amount ($)</label>
               <input 
                 required
                 type="number" 
                 step="0.01"
-                className="w-full bg-[#111827] border border-[#1E293B] rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                className={`w-full ${themeClasses.inputBg} border ${themeClasses.inputBorder} rounded-lg px-4 py-2.5 ${themeClasses.inputText} focus:outline-none focus:border-blue-500`}
                 placeholder="-500.00 or 1200"
                 value={formData.amount}
                 onChange={(e) => setFormData({...formData, amount: e.target.value})}
@@ -86,9 +88,9 @@ export default function AddTransactionModal({ isOpen, onClose, onAdd }) {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-gray-400 mb-1.5 uppercase font-medium tracking-wider">Category</label>
+              <label className={`block text-xs ${themeClasses.textMuted} mb-1.5 uppercase font-medium tracking-wider`}>Category</label>
               <select 
-                className="w-full bg-[#111827] border border-[#1E293B] rounded-lg px-4 py-2.5 text-gray-200 focus:outline-none focus:border-blue-500 appearance-none"
+                className={`w-full ${themeClasses.inputBg} border ${themeClasses.inputBorder} rounded-lg px-4 py-2.5 ${themeClasses.inputText} focus:outline-none focus:border-blue-500 appearance-none`}
                 value={formData.category}
                 onChange={(e) => setFormData({...formData, category: e.target.value})}
               >
@@ -98,9 +100,9 @@ export default function AddTransactionModal({ isOpen, onClose, onAdd }) {
               </select>
             </div>
             <div>
-              <label className="block text-xs text-gray-400 mb-1.5 uppercase font-medium tracking-wider">Type</label>
+              <label className={`block text-xs ${themeClasses.textMuted} mb-1.5 uppercase font-medium tracking-wider`}>Type</label>
               <select 
-                className="w-full bg-[#111827] border border-[#1E293B] rounded-lg px-4 py-2.5 text-gray-200 focus:outline-none focus:border-blue-500 appearance-none"
+                className={`w-full ${themeClasses.inputBg} border ${themeClasses.inputBorder} rounded-lg px-4 py-2.5 ${themeClasses.inputText} focus:outline-none focus:border-blue-500 appearance-none`}
                 value={formData.type}
                 onChange={(e) => setFormData({...formData, type: e.target.value})}
               >
@@ -111,8 +113,8 @@ export default function AddTransactionModal({ isOpen, onClose, onAdd }) {
             </div>
           </div>
 
-          <div className="pt-4 mt-6 border-t border-[#1E293B] flex justify-end gap-3">
-            <button type="button" onClick={onClose} className="px-5 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white transition-colors">
+          <div className={`pt-4 mt-6 border-t ${themeClasses.cardBorder} flex justify-end gap-3`}>
+            <button type="button" onClick={onClose} className={`px-5 py-2.5 rounded-lg text-sm font-medium ${themeClasses.textSecondary} hover:${themeClasses.textPrimary} transition-colors`}>
               Cancel
             </button>
             <button type="submit" className="px-5 py-2.5 rounded-lg text-sm font-medium bg-blue-600 hover:bg-blue-500 text-white transition-colors">
